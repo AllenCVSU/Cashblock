@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cashblock | Settings - Security</title>
+  <link rel="stylesheet" href="settings.css" />
+  <style>
+    /* Center the security grid horizontally */
+    .security-grid {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-left">
+      <h1>Cashblock</h1>
+    </div>
+    <div class="navbar-right">
+      <div class="dropdown">
+        <button class="nav-btn" onclick="toggleDropdown()">🔔 Notifications</button>
+        <div id="notifDropdown" class="dropdown-content">
+          <p>Recent transaction in CashG was Successful. No Fraud was detected.</p>
+          <p>Recent transaction in GoTyme Bank was Unsuccessful. The operation was aborted.</p>
+          <p>Recent transaction in MayaPay was Successful. Possible fraud is detected. Contact bank immediately.</p>
+        </div>
+      </div>
+      <button class="nav-btn logout">🚪 Logout</button>
+    </div>
+  </div>
+
+  <!-- Sidebar and Content -->
+  <div class="container">
+    <div class="sidebar">
+      <h2>Menu</h2>
+      <a href="home.html" class="sidebar-btn">🏠 Home</a>
+      <a href="profile.html" class="sidebar-btn">👤 Profile</a>
+      <a href="settingsaccount.html" class="sidebar-btn">⚙️ Settings</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+      <h2>User Profile</h2>
+
+      <!-- Tabs -->
+      <div class="tab-buttons">
+        <a href="settingsaccount.html" class="tab-button">Account</a>
+        <a href="settingsecurity.html" class="tab-button active">Security</a>
+        <a href="settingsnotif.html" class="tab-button">Notifications</a>
+      </div>
+
+      <!-- Tabs Content -->
+      <div id="account" class="tab-content">
+        <p>Account info is not available in this version.</p>
+      </div>
+
+      <div id="security" class="tab-content active">
+        <div class="security-grid">
+          <div class="settings-item" style="display: flex; align-items: flex-start; gap: 15px; position: relative; background-color: #ffe4f2; border-radius: 20px; padding: 20px;">
+            <div class="security-icon">🔐</div>
+            <div class="security-text">
+              <h4>Password</h4>
+              <p>Create or update your password</p>
+            </div>
+            <button class="update-btn">Update</button>
+          </div>
+
+          <div class="settings-item" style="display: flex; align-items: flex-start; gap: 15px; position: relative; background-color: #ffe4f2; border-radius: 20px; padding: 20px;">
+            <div class="security-icon">👤🔑</div>
+            <div class="security-text">
+              <h4>Passkey</h4>
+              <p>Seamlessly log in using your PIN.</p>
+            </div>
+            <button class="update-btn">Update</button>
+          </div>
+
+          <div class="settings-item" style="display: flex; align-items: flex-start; gap: 15px; position: relative; background-color: #ffe4f2; border-radius: 20px; padding: 20px;">
+            <div class="security-icon">🛡️</div>
+            <div class="security-text">
+              <h4>2 step verification</h4>
+              <p>Add an extra layer of security by using a one-time code in addition to your password.</p>
+            </div>
+            <button class="update-btn">Update</button>
+          </div>
+
+          <div class="settings-item" style="display: flex; align-items: flex-start; gap: 15px; position: relative; background-color: #ffe4f2; border-radius: 20px; padding: 20px;">
+            <div class="security-icon">💬</div>
+            <div class="security-text">
+              <h4>Security questions</h4>
+              <p>Choose 2 questions so we can verify it’s you if needed.</p>
+            </div>
+            <button class="update-btn">Update</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="notifications" class="tab-content">
+        <p>🔔 Notification preferences go here (e.g., email alerts, SMS notifications).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    function toggleDropdown() {
+      document.getElementById("notifDropdown").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.closest('.dropdown')) {
+        const dropdown = document.getElementById("notifDropdown");
+        if (dropdown && dropdown.classList.contains('show')) {
+          dropdown.classList.remove('show');
+        }
+      }
+    };
+
+    // Highlight active tab on click
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', function() {
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

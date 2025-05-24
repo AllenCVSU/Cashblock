@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cashblock | Profile</title>
+  <link rel="stylesheet" href="profile.css" />
+</head>
+<body>
+  
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-left">
+      <h1>Cashblock</h1>
+    </div>
+    <div class="navbar-right">
+      <div class="dropdown">
+        <button class="nav-btn" onclick="toggleDropdown()">🔔 Notifications</button>
+        <div id="notifDropdown" class="dropdown-content">
+          <p>Recent transaction in CashG was Successful. No Fraud was detected.</p>
+          <p>Recent transaction in GoTyme Bank was Unsuccessful. The operation was aborted.</p>
+          <p>Recent transaction in MayaPay was Successful. Possible fraud is detected. Contact bank immediately.</p>
+        </div>
+      </div>
+      <button class="nav-btn logout">🚪 Logout</button>
+    </div>
+  </div>
+
+  <!-- Sidebar and Content -->
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Menu</h2>
+      <a href="home.html" class="sidebar-btn">🏠 Home</a>
+      <a href="profile.html" class="sidebar-btn">👤 Profile</a>
+      <a href="settingsaccount.html" class="sidebar-btn">⚙️ Settings</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+      <div class="profile-container">
+        <h2 class="profile-title">Profile</h2>
+        <div class="profile-grid">
+          <div class="profile-item">
+            <label>Full name</label>
+            <p>Guest00001</p>
+          </div>
+          <div class="profile-item">
+            <label>Mobile number</label>
+            <p>09** *** 2221</p>
+          </div>
+          <div class="profile-item">
+            <label>Date of birth</label>
+            <p>01/8/2002</p>
+          </div>
+          <div class="profile-item">
+            <label>Email Address</label>
+            <p>Test_Email@gmail.com</p>
+          </div>
+          <div class="profile-item">
+            <label>Country</label>
+            <p>Philippines</p>
+          </div>
+          <div class="profile-item">
+            <label>Home address</label>
+            <p>Lorem Ipsum</p>
+          </div>
+          <div class="profile-item full-width">
+            <label>Username</label>
+            <p>Guest00001</p>
+          </div>
+        </div>
+
+        <!-- User Cards Section -->
+        <h2 class="profile-title" style="margin-top: 40px;">Your Cards</h2>
+        <div class="cards-container" style="display: flex; flex-wrap: wrap; gap: 20px;">
+          <div class="card-item" style="background-color: #fde6c3; padding: 15px 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); flex: 1 1 300px; position: relative;">
+            <h3>Banco De Oro</h3>
+            <p>Your Banco De Oro Card ending in 67</p>
+            <button class="remove-card-btn" style="position: absolute; top: 10px; right: 10px; background-color: #e74c3c; border: none; color: white; border-radius: 50%; width: 25px; height: 25px; cursor: pointer; font-weight: bold;">×</button>
+          </div>
+          <div class="card-item" style="background-color: #fde6c3; padding: 15px 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); flex: 1 1 300px; position: relative;">
+            <h3>Bank of the Philippine Islands</h3>
+            <p>Your Bank of the Philippine Islands Card ending in 59</p>
+            <button class="remove-card-btn" style="position: absolute; top: 10px; right: 10px; background-color: #e74c3c; border: none; color: white; border-radius: 50%; width: 25px; height: 25px; cursor: pointer; font-weight: bold;">×</button>
+          </div>
+          <button class="add-card-btn" style="background-color: #e89235; color: white; border: none; border-radius: 20px; padding: 10px 25px; font-weight: bold; cursor: pointer; height: 50px; align-self: center;">Add Card</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleDropdown() {
+      document.getElementById("notifDropdown").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.closest('.dropdown')) {
+        const dropdown = document.getElementById("notifDropdown");
+        if (dropdown && dropdown.classList.contains('show')) {
+          dropdown.classList.remove('show');
+        }
+      }
+    };
+  </script>
+</body>
+</html>

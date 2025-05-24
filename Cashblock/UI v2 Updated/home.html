@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cashblock | Home</title>
+  <link rel="stylesheet" href="home.css" />
+  <style>
+    .fraud-text {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-left">
+      <h1>Cashblock</h1>
+    </div>
+    <div class="navbar-right">
+      <div class="dropdown">
+        <button class="nav-btn" onclick="toggleDropdown()">🔔 Notifications</button>
+        <div id="notifDropdown" class="dropdown-content">
+          <p>Recent transaction in CashG was Successful. No Fraud was detected.</p>
+          <p>Recent transaction in GoTyme Bank was Unsuccessful. The operation was aborted.</p>
+          <p>Recent transaction in MayaPay was Successful. <span class="fraud-text">Possible fraud is detected.</span> Contact bank immediately.</p>
+        </div>
+      </div>
+      <button class="nav-btn logout">🚪 Logout</button>
+    </div>
+  </div>
+
+  <!-- Sidebar and Content -->
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Menu</h2>
+      <a href="home.html" class="sidebar-btn">🏠 Home</a>
+      <a href="profile.html" class="sidebar-btn">👤 Profile</a>
+      <a href="settingsaccount.html" class="sidebar-btn">⚙️ Settings</a>
+    </div>
+
+    <!-- Table Section -->
+    <div class="table-container">
+      <div style="overflow-x:auto;">
+        <table class="styled-transaction-table">
+          <thead>
+            <tr>
+              <th>Bank / Card</th>
+              <th>Product</th>
+              <th>Amount</th>
+              <th>Store</th>
+              <th>Time of Transaction</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CashG</td>
+              <td>Kiddie Meal</td>
+              <td>-₱195.00</td>
+              <td>Mcdonalds</td>
+              <td>04/01/2025 - 11:55 am</td>
+              <td>Successful<br />- No Fraud Detected</td>
+            </tr>
+            <tr>
+              <td>GoTyme Bank</td>
+              <td>Tshirt</td>
+              <td>₱599.95</td>
+              <td>Uniqlo</td>
+              <td>03/29/2025 - 12:32 pm</td>
+              <td>Unsuccessful<br />- Aborted</td>
+            </tr>
+            <tr>
+              <td>MayaPay</td>
+              <td>Combo 1 / Combo 2</td>
+              <td>-₱1020.00</td>
+              <td>Classic Savory</td>
+              <td>03/15/2025 - 12:23 pm</td>
+              <td>Successful<br /><span class="fraud-text">- Possible Fraud Detected</span><br />- Contact bank immediately</td>
+            </tr>
+            <tr>
+              <td>CashG</td>
+              <td>R.E.P.O.</td>
+              <td>-₱325.00</td>
+              <td>Steam</td>
+              <td>03/10/2025 - 1:36 pm</td>
+              <td>Successful<br />- No Fraud Detected</td>
+            </tr>
+            <tr>
+              <td>Paypal</td>
+              <td>Hoodie</td>
+              <td>₱2300.00</td>
+              <td>Metro Store</td>
+              <td>03/05/2025 - 6:30 pm</td>
+              <td>Unsuccessful<br /><span class="fraud-text">- Possible Fraud Detected</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    function toggleDropdown() {
+      document.getElementById("notifDropdown").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.closest('.dropdown')) {
+        const dropdown = document.getElementById("notifDropdown");
+        if (dropdown && dropdown.classList.contains('show')) {
+          dropdown.classList.remove('show');
+        }
+      }
+    };
+  </script>
+
+</body>
+</html>

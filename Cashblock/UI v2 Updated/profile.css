@@ -1,0 +1,183 @@
+/* Base styles */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to bottom right, #f8a7d7, #fad0c4);
+  color: #000;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #34495e;
+  color: white;
+  padding: 10px 20px;
+}
+
+.navbar-left h1 {
+  margin: 0;
+  font-size: 1.5em;
+  color: white; /* Ensure "Cashblock" text is white */
+}
+
+.navbar-right {
+  display: flex;
+  gap: 10px;
+}
+
+  .nav-btn {
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1em; /* Ensure consistent button font size */
+  }
+  
+  .nav-btn:hover {
+    background-color: #1a252f;
+  }
+
+.logout {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.logout:hover {
+  background-color: #c0392b;
+}
+
+/* Dropdown menu */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 5px;
+  color: black; /* Ensure dropdown text is black */
+}
+
+.dropdown-content p {
+  margin: 0;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  color: black; /* Ensure dropdown text is black */
+}
+
+.dropdown-content p:last-child {
+  border-bottom: none;
+}
+
+.show {
+  display: block;
+}
+
+/* Layout container */
+.container {
+  display: flex;
+  height: 100%;
+  flex: 1;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  font-size: 1.2em;
+  margin-bottom: 1em;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  margin: 10px 0;
+}
+
+.sidebar a:hover {
+  background-color: #34495e;
+  padding-left: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-btn {
+  display: block;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  color: white;
+  text-align: left;
+  padding: 10px 0;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.sidebar-btn:hover {
+  background-color: #34495e;
+  padding-left: 10px;
+  transition: all 0.2s ease-in-out;
+  border-radius: 4px;
+}
+
+/* Main Content Area */
+.content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* Profile Section */
+.profile-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.profile-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 2rem;
+}
+
+.profile-item {
+  background-color: #fde6c3;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.profile-item label {
+  display: block;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.profile-item p {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.full-width {
+  grid-column: span 2;
+}

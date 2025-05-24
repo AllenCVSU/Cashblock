@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cashblock | Settings - Account</title>
+  <link rel="stylesheet" href="settings.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-left">
+      <h1>Cashblock</h1>
+    </div>
+    <div class="navbar-right">
+      <div class="dropdown">
+        <button class="nav-btn" onclick="toggleDropdown()">🔔 Notifications</button>
+        <div id="notifDropdown" class="dropdown-content">
+          <p>Recent transaction in CashG was Successful. No Fraud was detected.</p>
+          <p>Recent transaction in GoTyme Bank was Unsuccessful. The operation was aborted.</p>
+          <p>Recent transaction in MayaPay was Successful. Possible fraud is detected. Contact bank immediately.</p>
+        </div>
+      </div>
+      <button class="nav-btn logout">🚪 Logout</button>
+    </div>
+  </div>
+
+  <!-- Sidebar and Content -->
+  <div class="container">
+    <div class="sidebar">
+      <h2>Menu</h2>
+      <a href="home.html" class="sidebar-btn">🏠 Home</a>
+      <a href="profile.html" class="sidebar-btn">👤 Profile</a>
+      <a href="settingsaccount.html" class="sidebar-btn">⚙️ Settings</a>
+    </div>
+
+    <div class="content">
+      <h2>User Profile</h2>
+
+      <!-- Tabs -->
+      <div class="tab-buttons">
+        <a href="settingsaccount.html" class="tab-button active">Account</a>
+        <a href="settingsecurity.html" class="tab-button">Security</a>
+        <a href="settingsnotif.html" class="tab-button">Notifications</a>
+      </div>
+
+      <!-- Tab Contents -->
+      <div id="account" class="tab-content active">
+        <div class="settings-account-grid">
+          <div class="settings-item" style="position: relative;">
+            <h3>Full name</h3>
+            <p id="value-name">Guest00001</p>
+            <input type="text" id="input-name" style="display:none;" />
+            <button class="edit-link" onclick="toggleEdit('name')">Edit</button>
+          </div>
+          <div class="settings-item" style="position: relative;">
+            <h3>Mobile number</h3>
+            <p id="value-mobile">09** *** 2221</p>
+            <input type="text" id="input-mobile" style="display:none;" />
+            <button class="edit-link" onclick="toggleEdit('mobile')">Edit</button>
+          </div>
+          <div class="settings-item" style="position: relative;">
+            <h3>Date of birth</h3>
+            <p id="value-dob">01/8/2002</p>
+            <input type="text" id="input-dob" style="display:none;" />
+            <button class="edit-link" onclick="toggleEdit('dob')">Edit</button>
+          </div>
+          <div class="settings-item" style="position: relative;">
+            <h3>Email Address</h3>
+            <p id="value-email">Test_Email@gmail.com</p>
+            <input type="text" id="input-email" style="display:none;" />
+            <button class="edit-link" onclick="toggleEdit('email')">Edit</button>
+          </div>
+          <div class="settings-item" style="position: relative;">
+            <h3>Country</h3>
+            <p id="value-country">Philippines</p>
+            <input type="text" id="input-country" style="display:none;" />
+            <button class="edit-link" onclick="toggleEdit('country')">Edit</button>
+          </div>
+          <div class="settings-item" style="position: relative;">
+            <h3>Home address</h3>
+            <p id="value-address">Lorem Ipsum</p>
+            <input type="text" id="input-address" style="display:none;" />
+            <button class="edit-link" onclick="toggleEdit('address')">Edit</button>
+          </div>
+          <div class="settings-item" style="position: relative;">
+            <h3>Username</h3>
+            <p id="value-username">Guest00001</p>
+            <input type="text" id="input-username" style="display:none;" />
+            <button class="edit-link" onclick="toggleEdit('username')">Edit</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="security" class="tab-content">
+        <p>🔐 Security settings will go here (e.g., change password, enable 2FA).</p>
+      </div>
+
+      <div id="notifications" class="tab-content">
+        <p>🔔 Notification preferences go here (e.g., email alerts, SMS notifications).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    function toggleDropdown() {
+      document.getElementById("notifDropdown").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.closest('.dropdown')) {
+        const dropdown = document.getElementById("notifDropdown");
+        if (dropdown && dropdown.classList.contains('show')) {
+          dropdown.classList.remove('show');
+        }
+      }
+    };
+
+    function toggleEdit(field) {
+      const valueEl = document.getElementById(`value-${field}`);
+      const inputEl = document.getElementById(`input-${field}`);
+      const buttonEl = inputEl.nextElementSibling;
+
+      if (inputEl.style.display === 'none') {
+        inputEl.value = valueEl.textContent;
+        valueEl.style.display = 'none';
+        inputEl.style.display = 'block';
+        buttonEl.textContent = 'Save';
+      } else {
+        valueEl.textContent = inputEl.value;
+        inputEl.style.display = 'none';
+        valueEl.style.display = 'block';
+        buttonEl.textContent = 'Edit';
+      }
+    }
+
+    // Highlight active tab on click
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', function() {
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

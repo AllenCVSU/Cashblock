@@ -1,0 +1,87 @@
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: sans-serif;
+    margin: 0;
+}
+
+header {
+    background-color: #1e1e1e;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    float: right;
+}
+
+/* Add styles for search bar, nav, buttons, etc. */
+
+main {
+    padding: 20px;
+}
+.sidebar {
+    background: linear-gradient(180deg, #8ca6b9 0%, #5a7a8a 100%);
+    width: 160px;
+  }
+
+  .sidebar-title {
+    font-family: 'Staatliches', cursive;
+  }
+
+  .profile-button,
+  .cards-button,
+  .settings-button {
+    background: linear-gradient(to bottom, #d9d1d6, #a87f8a);
+  }
+
+  .dashboard-button {
+    background: linear-gradient(to bottom, #ff4a1a, #ff6a3a);
+    border: solid black;
+    border-width: 0 0 4px 0;
+  }
+
+  .sidebar-footer {
+    font-family: 'Staatliches', cursive;
+  }
+
+  .main {
+    background: linear-gradient(90deg, #f9e1b7 0%, #fbb8f9 100%);
+  }
+
+  .topbar {
+    background: linear-gradient(180deg, #d9b6b6 0%, #8a5a5a 100%);
+  }
+
+  .topbar-user {
+    font-family: 'Staatliches', cursive;
+  }
+
+  .tab-active {
+    background: linear-gradient(to bottom, #ff4a1a, #ff6a3a);
+    border: solid black;
+    border-width: 0 0 4px 0;
+  }
+
+  .tab-inactive {
+    background: linear-gradient(to bottom, #d9d1d6, #a87f8a);
+  }
+
+  .transaction-table {
+    font-family: 'Staatliches', cursive;
+  }
+
+  .thead-yellow {
+    background: #f9e1b7;
+  }
+
+  .thead-pink {
+    background: #fbb8f9;
+  }
+
+  .tbody-yellow {
+    background: #f9e1b7;
+  }
+
+  .tbody-pink {
+    background: #fbb8f9;
+  }
