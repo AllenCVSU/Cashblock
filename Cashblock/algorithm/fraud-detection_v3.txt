@@ -1,0 +1,188 @@
+# Loading Dataset
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier, LocalOutlierFactor
+from sklearn.ensemble import IsolationForest
+from xgboost import XGBClassifier
+from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score, accuracy_score, f1_score
+
+# Load the first dataset
+df = pd.read_csv('/content/drive/MyDrive/AAA_datasets/thesis/creditcard_2023.csv')
+
+# Drop the 'id' column as it's not needed
+df = df.drop('id', axis=1)
+
+# Shuffle and split the dataset into training and testing sets
+X = df.drop('Class', axis=1)
+y = df['Class']
+
+# Split the dataset into training and testing sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
+
+# Scale the 'Amount' column
+scaler = StandardScaler()
+X_train['Amount'] = scaler.fit_transform(X_train[['Amount']])
+X_test['Amount'] = scaler.transform(X_test[['Amount']])  # Use the same scaler for the test set
+
+
+
+
+
+# Train supervised models
+xgb = XGBClassifier(use_label_encoder=False, eval_metric='logloss')
+xgb.fit(X_train, y_train)
+
+knn = KNeighborsClassifier(n_neighbors=3)
+knn.fit(X_train, y_train)
+
+
+
+
+
+# Train unsupervised models
+iso_forest = IsolationForest(contamination=0.01, random_state=42, n_estimators=100)
+iso_forest.fit(X_train)
+
+
+
+
+
+# Predict on training set for each model
+xgb_probs = xgb.predict_proba(X_train)[:, 1]  # Probability of class 1 (fraud)
+xgb_preds = np.where(xgb_probs >= 0.9, 1, 0)
+knn_preds = knn.predict(X_train)
+
+iso_preds = iso_forest.predict(X_train)
+iso_preds = np.where(iso_preds == -1, 1, 0)
+
+lof_test = LocalOutlierFactor(n_neighbors=20, contamination=0.01)
+lof_preds_test = lof_test.fit_predict(X_train)
+lof_preds = np.where(lof_preds_test == -1, 1, 0)
+
+
+
+
+
+# Evaluate each model on the training set
+def evaluate_model(y_true, y_pred, model_name):
+    print(f"{model_name} Evaluation:")
+    print(confusion_matrix(y_true, y_pred))
+    print(classification_report(y_true, y_pred, target_names=["Legit", "Fraud"]))
+    print("Accuracy:", accuracy_score(y_true, y_pred))
+    print("ROC AUC Score:", roc_auc_score(y_true, y_pred))
+    print("\n")
+
+# Evaluate each model
+evaluate_model(y_train, xgb_preds, "XGBoost")
+evaluate_model(y_train, knn_preds, "KNN")
+evaluate_model(y_train, iso_preds, "Isolation Forest")
+evaluate_model(y_train, lof_preds, "Local Outlier Factor")
+
+
+
+
+
+# Combine predictions using majority vote for hybrid model
+final_preds = []
+for i in range(len(X_train)):
+    vote_score = (
+        (1 if xgb_preds[i] == 1 else 0) * 1.5 +
+        (1 if knn_preds[i] == 1 else 0) * 1.5 +
+        (1 if iso_preds[i] == 1 else 0) * 1 +
+        (1 if lof_preds[i] == 1 else 0) * 1
+    )
+    final_preds.append(1 if vote_score >= 2.5 else 0)
+
+# Evaluate results on the hybrid model
+print("Hybrid Model Evaluation on Training Set:")
+evaluate_model(y_train, final_preds, "Hybrid Model")
+
+
+
+
+
+# Compare fraud rates on training dataset
+print("Fraud rate predicted by each model on training dataset:")
+print("XGBoost:", sum(xgb_preds), "frauds")
+print("KNN:", sum(knn_preds), "frauds")
+print("Isolation Forest:", sum(iso_preds), "frauds")
+print("LOF:", sum(lof_preds), "frauds")
+print(f"Final hybrid fraud detection rate (train set): {sum(final_preds) / len(final_preds):.4f}")
+
+# Macro and Weighted F1-Score Calculations for training dataset
+print("Macro F1 (Train):", f1_score(y_train, final_preds, average='macro'))
+print("Weighted F1 (Train):", f1_score(y_train, final_preds, average='weighted'))
+
+
+
+
+
+# Predict using trained models on the test dataset
+xgb_probs_test = xgb.predict_proba(X_test)[:, 1]
+xgb_preds_test = np.where(xgb_probs_test >= 0.9, 1, 0)
+knn_preds_test = knn.predict(X_test)
+iso_preds_test = np.where(iso_forest.predict(X_test) == -1, 1, 0)
+lof_preds_test = np.where(lof_test.fit_predict(X_test) == -1, 1, 0)  # Use the same LOF model
+
+
+
+
+
+# Evaluate each model on the test dataset
+print("Evaluation on Test Dataset:")
+evaluate_model(y_test, xgb_preds_test, "XGBoost")
+evaluate_model(y_test, knn_preds_test, "KNN")
+evaluate_model(y_test, iso_preds_test, "Isolation Forest")
+evaluate_model(y_test, lof_preds_test, "Local Outlier Factor")
+
+
+
+
+
+# Voting ensemble for the test dataset
+final_preds_test = []
+for i in range(len(X_test)):
+    vote_score = (
+        (1 if xgb_preds_test[i] == 1 else 0) * 1.5 +
+        (1 if knn_preds_test[i] == 1 else 0) * 1.5 +
+        (1 if iso_preds_test[i] == 1 else 0) * 1 +
+        (1 if lof_preds_test[i] == 1 else 0) * 1
+    )
+    final_preds_test.append(1 if vote_score >= 2.5 else 0)
+
+# Evaluate on test dataset for hybrid model
+print("Hybrid Model Evaluation on Test Dataset:")
+evaluate_model(y_test, final_preds_test, "Hybrid Model")
+
+
+
+
+
+# Compare fraud rates on test dataset
+print("Fraud rate predicted by each model on test dataset:")
+print("XGBoost:", sum(xgb_preds_test), "frauds")
+print("KNN:", sum(knn_preds_test), "frauds")
+print("Isolation Forest:", sum(iso_preds_test), "frauds")
+print("LOF:", sum(lof_preds_test), "frauds")
+print(f"Final hybrid fraud detection rate (test set): {sum(final_preds_test) / len(final_preds_test):.4f}")
+
+# Macro and Weighted F1-Score Calculations for test dataset
+print("Macro F1 (Test):", f1_score(y_test, final_preds_test, average='macro'))
+print("Weighted F1 (Test):", f1_score(y_test, final_preds_test, average='weighted'))
+
+
+
+
+
+# Fraud Ratio Comparison Between Predicted and Actual for test dataset
+print("Actual fraud ratio (Test):", y_test.mean())
+print("Predicted fraud ratio (Hybrid Test):", sum(final_preds_test) / len(final_preds_test))
+
+
+
+
+
+DATASET:
+https://www.kaggle.com/datasets/nelgiriyewithana/credit-card-fraud-detection-dataset-2023/data
